@@ -5,7 +5,6 @@ import {
   IconFolder,
   IconShare3,
   IconTrash,
-  type Icon,
 } from "@tabler/icons-react"
 
 import {
@@ -31,7 +30,7 @@ export function NavDocuments({
   items: {
     name: string
     url: string
-    icon: Icon
+    icon?: React.FC<React.SVGProps<SVGSVGElement>>
   }[]
 }) {
   const { isMobile } = useSidebar()
@@ -40,46 +39,56 @@ export function NavDocuments({
     <SidebarGroup className="NAVDOCUMENTS GROUP group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Documents</SidebarGroupLabel>
       <SidebarMenu>
-        {items.map((item) => (
-          <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton className="h-10 gap-[10px] rounded-[8px] px-[16px] py-[13px]" asChild>
-              <a href={item.url}>
-                <item.icon className="!h-[22px] !w-[22px] text-foreground itemIconHereBro"/>
-                <span className="font-medium text-[14px] tracking-tight">{item.name}</span>
-              </a>
-            </SidebarMenuButton>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuAction
-                  showOnHover
-                  className="data-[state=open]:bg-accent rounded-sm"
-                >
-                  <IconDots />
-                  <span className="sr-only">More</span>
-                </SidebarMenuAction>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className="w-24 rounded-lg"
-                side={isMobile ? "bottom" : "right"}
-                align={isMobile ? "end" : "start"}
+        {items.map((item) => {
+          const Icon = item.icon
+          return (
+            <SidebarMenuItem key={item.name}>
+              <SidebarMenuButton
+                className="h-10 gap-[10px] rounded-[8px] px-[16px] py-[13px]"
+                asChild
               >
-                <DropdownMenuItem>
-                  <IconFolder />
-                  <span>Open</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <IconShare3 />
-                  <span>Share</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem variant="destructive">
-                  <IconTrash />
-                  <span>Delete</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </SidebarMenuItem>
-        ))}
+                <a href={item.url}>
+                  {Icon && (
+                    <Icon className="!h-[22px] !w-[22px] text-foreground" />
+                  )}
+                  <span className="font-medium text-[14px] tracking-tight">
+                    {item.name}
+                  </span>
+                </a>
+              </SidebarMenuButton>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <SidebarMenuAction
+                    showOnHover
+                    className="data-[state=open]:bg-accent rounded-sm"
+                  >
+                    <IconDots />
+                    <span className="sr-only">More</span>
+                  </SidebarMenuAction>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  className="w-24 rounded-lg"
+                  side={isMobile ? "bottom" : "right"}
+                  align={isMobile ? "end" : "start"}
+                >
+                  <DropdownMenuItem>
+                    <IconFolder />
+                    <span>Open</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <IconShare3 />
+                    <span>Share</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem variant="destructive">
+                    <IconTrash />
+                    <span>Delete</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </SidebarMenuItem>
+          )
+        })}
         <SidebarMenuItem>
           <SidebarMenuButton className="text-sidebar-foreground/70">
             <IconDots className="text-sidebar-foreground/70" />

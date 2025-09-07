@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import { usePathname } from "next/navigation"
-import { useTheme } from "next-themes"
 
 import { cn } from "@/lib/utils"
 import {
