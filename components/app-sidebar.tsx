@@ -5,9 +5,6 @@ import {
   IconCamera,
   IconFileAi,
   IconFileDescription,
-  IconHelp,
-  IconSearch,
-  IconSettings,
 } from "@tabler/icons-react"
 
 import { MainLogoDark } from "./icons/MainLogo"
