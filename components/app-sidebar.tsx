@@ -19,6 +19,18 @@ import {
   IconUsers,
 } from "@tabler/icons-react"
 
+import { MainLogoDark, MainLogoLight } from "./icons/MainLogo"
+import { AnalyticsIconDark, AnalyticsIconLight } from "./icons/AnalyticsIcon"
+import { BookIconDark, BookIconLight } from "./icons/BookIcon"
+import { CreatorsIconDark, CreatorsIconLight } from "./icons/CreatorsIcon"
+import { FlaskIconDark, FlaskIconLight } from "./icons/FlaskIcon"
+import { PlusIconDark, PlusIconLight } from "./icons/PlusIcon"
+import { ProfileIconDark, ProfileIconLight } from "./icons/ProfileIcon"
+import { SettingsGearIconDark, SettingsGearIconLight } from "./icons/SettingsGearIcon"
+import { SmileIconDark } from "./icons/SmileIconDark"
+import { SmileIconLight } from "./icons/SmileIconLight"
+import { SmileIconTongueDark, SmileIconTongueLight } from "./icons/SmileIconTongueDark"
+
 import { NavDocuments } from "@/components/nav-documents"
 import { NavMain } from "@/components/nav-main"
 import { NavSecondary } from "@/components/nav-secondary"
@@ -32,6 +44,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { ModeToggle } from "./moon-toggle"
 
 const data = {
   user: {
@@ -173,7 +186,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavDocuments items={data.documents} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className="pb-12">
+        <ModeToggle/>
         <NavUser user={data.user} />
       </SidebarFooter>
     </Sidebar>
