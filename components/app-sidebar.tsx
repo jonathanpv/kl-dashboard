@@ -34,6 +34,9 @@ import {
 } from "@/components/ui/sidebar"
 import { ModeToggle } from "./moon-toggle"
 
+import { useTheme } from "next-themes"
+import { cn } from "@/lib/utils"
+
 const data = {
   user: {
     name: "shadcn",
@@ -147,6 +150,8 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { resolvedTheme } = useTheme();
+
   return (
     <Sidebar className="sidebarclassbro !pt-12" collapsible="offcanvas" {...props}>
       <SidebarHeader className="sidebarheaderclassbro mb-5">
@@ -157,7 +162,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className="sidebarMENUBUTTONCLASSBRO data-[slot=sidebar-menu-button]:!p-1.5"
             >
               <a href="#">
-                <MainLogoDark className="!w-[32px] !h-[24px]"/>
+                <MainLogoDark className={cn("!w-[32px] !h-[24px]", resolvedTheme == "dark" ? "text-white" : "text-black")}/>
                 <span className="text-2xl font-russo-one">GROWWW</span>
               </a>
             </SidebarMenuButton>

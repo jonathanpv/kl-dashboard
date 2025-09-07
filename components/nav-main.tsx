@@ -1,7 +1,10 @@
 "use client"
 
 import * as React from "react"
+import { usePathname } from "next/navigation"
+import { useTheme } from "next-themes"
 
+import { cn } from "@/lib/utils"
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -20,6 +23,9 @@ export function NavMain({
     icon?: React.FC<React.SVGProps<SVGSVGElement>>
   }[]
 }) {
+  const pathname = usePathname()
+  const { resolvedTheme } = useTheme()
+
   return (
     <SidebarGroup className="THENAVMAINGROUP SIDEBARGROUP CLASS BRO">
       <SidebarGroupContent className="flex flex-col gap-2">
@@ -29,7 +35,7 @@ export function NavMain({
 
             <SidebarMenuButton
               tooltip="Create New"
-              className="h-11 gap-[10px] rounded-[8px] px-[16px] py-[13px] radial-shine-background text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear"
+              className="h-11 gap-[10px] rounded-[8px] px-[16px] py-[13px] radial-shine-background text-black hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear"
             >
               <PlusIconDark className="!h-[22px] !w-[22px]"/>
               <span className="font-sans text-center text-base font-bold tracking-tight">Create New</span>
@@ -39,14 +45,29 @@ export function NavMain({
 
         
         <SidebarMenu className="gap-[2px] theSECONDSidebarmaenushit">
-          {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton className="h-10 gap-[10px] rounded-[8px] px-[16px] py-[13px]" tooltip={item.title}>
-                {item.icon && <item.icon className="!h-[22px] !w-[22px] text-white" />}
-                <span className="font-medium text-[14px] tracking-tight">{item.title}</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
+          {items.map((item) => {
+            const isActive = pathname === item.url
+            return (
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton
+                  className={cn(
+                    "h-10 gap-[10px] rounded-[8px] px-[16px] py-[13px]",
+                    isActive
+                      ? "bg-white text-black hover:bg-white/90"
+                      : resolvedTheme === "dark"
+                        ? "text-white"
+                        : "text-black"
+                  )}
+                  tooltip={item.title}
+                >
+                  {item.icon && <item.icon className="!h-[22px] !w-[22px]" />}
+                  <span className="font-medium text-[14px] tracking-tight">
+                    {item.title}
+                  </span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            )
+          })}
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>
