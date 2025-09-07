@@ -3,12 +3,9 @@
 import * as React from "react"
 import {
   IconCamera,
-  IconDatabase,
   IconFileAi,
   IconFileDescription,
-  IconFileWord,
   IconHelp,
-  IconReport,
   IconSearch,
   IconSettings,
 } from "@tabler/icons-react"
@@ -34,8 +31,8 @@ import {
 } from "@/components/ui/sidebar"
 import { ModeToggle } from "./moon-toggle"
 
-import { useTheme } from "next-themes"
-import { cn } from "@/lib/utils"
+import { SmileIconDark } from "./icons/SmileIconDark"
+import { SmileIconTongueDark } from "./icons/SmileIconTongueDark"
 
 const data = {
   user: {
@@ -132,25 +129,24 @@ const data = {
   ],
   documents: [
     {
-      name: "Data Library",
+      name: "Group 1",
       url: "#",
-      icon: IconDatabase,
+      icon: SmileIconDark,
     },
     {
-      name: "Reports",
+      name: "Group 2",
       url: "#",
-      icon: IconReport,
+      icon: SmileIconTongueDark,
     },
     {
-      name: "Word Assistant",
+      name: "Group 3",
       url: "#",
-      icon: IconFileWord,
+      icon: SmileIconDark,
     },
   ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { resolvedTheme } = useTheme();
 
   return (
     <Sidebar className="sidebarclassbro !pt-12" collapsible="offcanvas" {...props}>
@@ -162,7 +158,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className="sidebarMENUBUTTONCLASSBRO data-[slot=sidebar-menu-button]:!p-1.5"
             >
               <a href="#">
-                <MainLogoDark className={cn("!w-[32px] !h-[24px]", resolvedTheme == "dark" ? "text-white" : "text-black")}/>
+                <MainLogoDark className="!w-[32px] !h-[24px] text-foreground"/>
                 <span className="text-2xl font-russo-one">GROWWW</span>
               </a>
             </SidebarMenuButton>

@@ -42,10 +42,10 @@ export function NavDocuments({
       <SidebarMenu>
         {items.map((item) => (
           <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton asChild>
+            <SidebarMenuButton className="h-10 gap-[10px] rounded-[8px] px-[16px] py-[13px]" asChild>
               <a href={item.url}>
-                <item.icon />
-                <span>{item.name}</span>
+                <item.icon className="!h-[22px] !w-[22px] text-foreground itemIconHereBro"/>
+                <span className="font-medium text-[14px] tracking-tight">{item.name}</span>
               </a>
             </SidebarMenuButton>
             <DropdownMenu>

@@ -24,7 +24,6 @@ export function NavMain({
   }[]
 }) {
   const pathname = usePathname()
-  const { resolvedTheme } = useTheme()
 
   return (
     <SidebarGroup className="THENAVMAINGROUP SIDEBARGROUP CLASS BRO">
@@ -51,12 +50,10 @@ export function NavMain({
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton
                   className={cn(
-                    "h-10 gap-[10px] rounded-[8px] px-[16px] py-[13px]",
+                    "h-10 gap-[10px] rounded-[8px] px-[16px] py-[13px] text-foreground",
                     isActive
-                      ? "bg-white text-black hover:bg-white/90"
-                      : resolvedTheme === "dark"
-                        ? "text-white"
-                        : "text-black"
+                      ? "bg-foreground text-foreground hover:bg-foreground/90"
+                      : "text-foreground"
                   )}
                   tooltip={item.title}
                 >
