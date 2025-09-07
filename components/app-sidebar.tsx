@@ -3,33 +3,21 @@
 import * as React from "react"
 import {
   IconCamera,
-  IconChartBar,
-  IconDashboard,
   IconDatabase,
   IconFileAi,
   IconFileDescription,
   IconFileWord,
-  IconFolder,
   IconHelp,
-  IconInnerShadowTop,
-  IconListDetails,
   IconReport,
   IconSearch,
   IconSettings,
-  IconUsers,
 } from "@tabler/icons-react"
 
-import { MainLogoDark, MainLogoLight } from "./icons/MainLogo"
-import { AnalyticsIconDark, AnalyticsIconLight } from "./icons/AnalyticsIcon"
-import { BookIconDark, BookIconLight } from "./icons/BookIcon"
-import { CreatorsIconDark, CreatorsIconLight } from "./icons/CreatorsIcon"
-import { FlaskIconDark, FlaskIconLight } from "./icons/FlaskIcon"
-import { PlusIconDark, PlusIconLight } from "./icons/PlusIcon"
-import { ProfileIconDark, ProfileIconLight } from "./icons/ProfileIcon"
-import { SettingsGearIconDark, SettingsGearIconLight } from "./icons/SettingsGearIcon"
-import { SmileIconDark } from "./icons/SmileIconDark"
-import { SmileIconLight } from "./icons/SmileIconLight"
-import { SmileIconTongueDark, SmileIconTongueLight } from "./icons/SmileIconTongueDark"
+import { MainLogoDark } from "./icons/MainLogo"
+import { AnalyticsIconDark } from "./icons/AnalyticsIcon"
+import { BookIconDark } from "./icons/BookIcon"
+import { CreatorsIconDark } from "./icons/CreatorsIcon"
+import { FlaskIconDark } from "./icons/FlaskIcon"
 
 import { NavDocuments } from "@/components/nav-documents"
 import { NavMain } from "@/components/nav-main"
@@ -54,29 +42,24 @@ const data = {
   },
   navMain: [
     {
-      title: "Dashboard",
+      title: "Library",
       url: "#",
-      icon: IconDashboard,
-    },
-    {
-      title: "Lifecycle",
-      url: "#",
-      icon: IconListDetails,
+      icon: BookIconDark,
     },
     {
       title: "Analytics",
       url: "#",
-      icon: IconChartBar,
+      icon: AnalyticsIconDark,
     },
     {
-      title: "Projects",
+      title: "Creators",
       url: "#",
-      icon: IconFolder,
+      icon: CreatorsIconDark,
     },
     {
-      title: "Team",
+      title: "Experiments",
       url: "#",
-      icon: IconUsers,
+      icon: FlaskIconDark,
     },
   ],
   navClouds: [
@@ -165,28 +148,28 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
-      <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
+    <Sidebar className="sidebarclassbro !pt-12" collapsible="offcanvas" {...props}>
+      <SidebarHeader className="sidebarheaderclassbro mb-5">
+        <SidebarMenu className="sidebarmenuclassbro">
+          <SidebarMenuItem className="sidebarMenuITEMclassbro">
             <SidebarMenuButton
               asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
+              className="sidebarMENUBUTTONCLASSBRO data-[slot=sidebar-menu-button]:!p-1.5"
             >
               <a href="#">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+                <MainLogoDark className="!w-[32px] !h-[24px]"/>
+                <span className="text-2xl font-russo-one">GROWWW</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
-        <NavMain items={data.navMain} />
+      <SidebarContent className="sidebarCONTENTCLASSBRO">
+        <NavMain  items={data.navMain} />
         <NavDocuments items={data.documents} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
-      <SidebarFooter className="pb-12">
+      <SidebarFooter className="sidebarFOOTERCOmponentBro pb-12">
         <ModeToggle/>
         <NavUser user={data.user} />
       </SidebarFooter>
