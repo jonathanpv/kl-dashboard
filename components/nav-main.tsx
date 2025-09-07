@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link";
 import * as React from "react"
 import { usePathname } from "next/navigation"
 
@@ -47,20 +48,22 @@ export function NavMain({
             const isActive = pathname === item.url
             return (
               <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton
-                  className={cn(
-                    "h-10 gap-[10px] rounded-[8px] px-[16px] py-[13px] text-foreground",
-                    isActive
-                      ? "bg-foreground text-foreground hover:bg-foreground/90"
-                      : "text-foreground"
-                  )}
-                  tooltip={item.title}
-                >
-                  {item.icon && <item.icon className="!h-[22px] !w-[22px]" />}
-                  <span className="font-medium text-[14px] tracking-tight">
-                    {item.title}
-                  </span>
-                </SidebarMenuButton>
+                <Link href={item.url}>
+                  <SidebarMenuButton
+                    className={cn(
+                      "h-10 gap-[10px] rounded-[8px] px-[16px] py-[13px] text-foreground",
+                      isActive
+                        ? "bg-foreground text-background hover:bg-foreground/90 hover:text-background"
+                        : "text-foreground"
+                    )}
+                    tooltip={item.title}
+                  >
+                    {item.icon && <item.icon className="!h-[22px] !w-[22px]" />}
+                    <span className="font-medium text-[14px] tracking-tight">
+                      {item.title}
+                    </span>
+                  </SidebarMenuButton>
+                </Link>
               </SidebarMenuItem>
             )
           })}

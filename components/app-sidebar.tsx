@@ -43,22 +43,22 @@ const data = {
   navMain: [
     {
       title: "Library",
-      url: "#",
+      url: "/dashboard",
       icon: BookIconDark,
     },
     {
       title: "Analytics",
-      url: "#",
+      url: "/dashboard/analytics",
       icon: AnalyticsIconDark,
     },
     {
       title: "Creators",
-      url: "#",
+      url: "/dashboard/creators",
       icon: CreatorsIconDark,
     },
     {
       title: "Experiments",
-      url: "#",
+      url: "/dashboard/experiments",
       icon: FlaskIconDark,
     },
   ],
@@ -110,23 +110,6 @@ const data = {
       ],
     },
   ],
-  navSecondary: [
-    {
-      title: "Settings",
-      url: "#",
-      icon: IconSettings,
-    },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: IconHelp,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: IconSearch,
-    },
-  ],
   documents: [
     {
       name: "Group 1",
@@ -168,9 +151,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent className="sidebarCONTENTCLASSBRO">
         <NavMain  items={data.navMain} />
         <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
-      <SidebarFooter className="sidebarFOOTERCOmponentBro pb-12">
+      <SidebarFooter className="sidebarFOOTERCOmponentBro ">
         <ModeToggle/>
         <NavUser user={data.user} />
       </SidebarFooter>
