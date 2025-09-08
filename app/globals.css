@@ -42,6 +42,8 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --stats-card-border: linear-gradient(166deg, var(--stats-card-border-start) 0.74%, var(--stats-card-border-end) 90.27%);
+  --stats-card-bg: linear-gradient(157deg, var(--stats-card-bg-start) 3.62%, var(--stats-card-bg-end) 88.02%);
 }
 
 :root {
@@ -77,6 +79,10 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+  --stats-card-border-start: #292929;
+  --stats-card-border-end: rgba(62, 62, 62, 0.00);
+  --stats-card-bg-start: #FBFBFB;
+  --stats-card-bg-end: #E8E8E8;
 }
 
 .dark {
@@ -111,6 +117,10 @@
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
+  --stats-card-border-start: #737373;
+  --stats-card-border-end: rgba(62, 62, 62, 0.00);
+  --stats-card-bg-start: #141414 ;
+  --stats-card-bg-end: #242424;
 }
 
 @layer base {
