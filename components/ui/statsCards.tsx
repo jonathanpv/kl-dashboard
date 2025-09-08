@@ -1,3 +1,4 @@
+import { TrendingDown } from 'lucide-react';
 import React from 'react'
 
 export const StatsCreatorCard = () => {
@@ -68,8 +69,50 @@ export const StatsCreatorCard = () => {
 };
 
 export const StatsNumberCard = () => {
+  const borderStyle = {
+    background: "var(--stats-card-border)",
+  };
+
+  const contentStyle = {
+    background: "var(--stats-card-bg)",
+  };
+
   return (
-    <div>statsCards</div>
-  )
-}
+    <div
+      className="w-[206px] rounded-[20px] p-px"
+      style={borderStyle}
+    >
+      <div
+        className="w-full h-full rounded-[19px] p-4 flex flex-col gap-[10px]"
+        style={contentStyle}
+      >
+        {/* Top Row */}
+        <div className="flex justify-between items-center self-stretch">
+          <div className="text-foreground font-geist text-[29px] font-black leading-normal tracking-[-0.58px]">
+            72K
+          </div>
+          <div className="flex items-center justify-center gap-2 rounded-full bg-foreground px-4 py-2">
+            <TrendingDown className="!h-4 !w-4 text-background" />
+            <div className="text-background text-center font-geist text-[10px] font-black uppercase leading-4 tracking-[0.8px]">
+              90%
+            </div>
+          </div>
+        </div>
+
+        {/* Chart Placeholder */}
+        <div className="h-[47px] self-stretch bg-[#FF3C3C]" />
+
+        {/* Title section */}
+        <div className="flex flex-col items-start self-stretch gap-1">
+          <div className="text-foreground/90 font-geist text-lg font-medium leading-6">
+            Views
+          </div>
+          <div className="text-muted-foreground font-inter text-sm font-normal leading-4">
+            Last 30 Days
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 

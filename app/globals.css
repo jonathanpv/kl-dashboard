@@ -7,6 +7,8 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
+  --font-geist: var(--font-geist-sans);
+  --font-geist-mono: var(--font-geist-mono);
   --font-mono: var(--font-geist-mono);
   --font-russo-one: var(--font-russo-one);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -80,9 +82,9 @@
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
   --stats-card-border-start: #292929;
-  --stats-card-border-end: rgba(62, 62, 62, 0.00);
+  --stats-card-border-end: rgba(62, 62, 62, 0.09);
   --stats-card-bg-start: #FBFBFB;
-  --stats-card-bg-end: #E8E8E8;
+  --stats-card-bg-end: #FAFAFA;
 }
 
 .dark {

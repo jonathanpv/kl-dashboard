@@ -32,11 +32,11 @@ const chartData = [
 const chartConfig = {
   mobile: {
     label: "Mobile",
-    color: "#FCA070",
+    color: "var(--color-chart-3)",
   },
 } satisfies ChartConfig;
 
-export function ClippedAreaChart() {
+export function StatsRevenueCard() {
   const chartRef = useRef<HTMLDivElement>(null);
   const [axis, setAxis] = useState(0);
 
@@ -54,24 +54,45 @@ export function ClippedAreaChart() {
     setAxis(latest);
   });
 
+  const borderStyle = {
+    background: "var(--stats-card-border)",
+  };
+
+  const contentStyle = {
+    background: "var(--stats-card-bg)",
+  };
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>
-          ${springY.get().toFixed(0)}
-          <Badge variant="secondary" className="ml-2">
-            <TrendingDown className="h-4 w-4" />
-            <span>-5.2%</span>
-          </Badge>
-        </CardTitle>
-        <CardDescription>Total revenue for last year</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer
-          ref={chartRef}
-          className="h-54 w-full"
-          config={chartConfig}
-        >
+    <div
+      className="w-[450px] h-[252px] rounded-[12px] p-px"
+      style={borderStyle}
+    >
+      <div
+        className="w-full h-full rounded-[11px] p-5 flex flex-col gap-2.5"
+        style={contentStyle}
+      >
+        <CardHeader className="p-0 flex flex-col gap-1">
+          <CardTitle className="flex flex-row w-full">
+            <span className="text-foreground w-full font-geist text-[29px] font-black leading-normal tracking-[-0.58px] ">
+              ${springY.get().toFixed(0)}
+            </span>
+            <Badge variant="secondary" className="flex items-center justify-center gap-2 rounded-full bg-foreground px-4 ">
+              <TrendingDown className="!h-4 !w-4 text-background" />
+              <span className="font-geist text-background text-center font-manrope text-[14px] font-bold uppercase leading-4 tracking-[0.8px]">
+                -5.2%
+              </span>
+            </Badge>
+          </CardTitle>
+          <CardDescription className="text-muted-foreground font-geist text-sm font-normal leading-4">
+            Total revenue for last year
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="p-0 flex-1 min-h-0">
+          <ChartContainer
+            ref={chartRef}
+            className="h-full w-full"
+            config={chartConfig}
+          >
           <AreaChart
             className="overflow-visible"
             accessibilityLayer
@@ -184,6 +205,7 @@ export function ClippedAreaChart() {
           </AreaChart>
         </ChartContainer>
       </CardContent>
-    </Card>
+    </div>
+  </div>
   );
 }
