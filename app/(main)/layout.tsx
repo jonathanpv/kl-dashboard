@@ -18,7 +18,7 @@ export default function MainLayout({
       }
     >
       <AppSidebar variant="inset" />
-      <SidebarInset>
+      <SidebarInset className="p-6">
         <SiteHeader />
         {children}
       </SidebarInset>

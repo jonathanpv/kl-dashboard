@@ -1,30 +1,20 @@
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { SidebarTrigger } from "@/components/ui/sidebar"
-
+import { SmileIconTongueDark } from "./icons/SmileIconTongueDark";
+import { PlusIconDark } from "./icons/PlusIcon";
 export function SiteHeader() {
   return (
-    <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
-      <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
-        <SidebarTrigger className="-ml-1" />
-        <Separator
-          orientation="vertical"
-          className="mx-2 data-[orientation=vertical]:h-4"
-        />
-        <h1 className="text-base font-medium">Documents</h1>
-        <div className="ml-auto flex items-center gap-2">
-          <Button variant="ghost" asChild size="sm" className="hidden sm:flex">
-            <a
-              href="https://github.com/shadcn-ui/ui/tree/main/apps/v4/app/(examples)/dashboard"
-              rel="noopener noreferrer"
-              target="_blank"
-              className="dark:text-foreground"
-            >
-              GitHub
-            </a>
-          </Button>
-        </div>
+    <header className="flex h-12 items-center gap-2 self-stretch px-4">
+      <div className="flex flex-1 items-center gap-2">
+        <SmileIconTongueDark width={24} height={24}/>
+        <h1 className="font-russo-one w-[302px] text-center text-2xl font-normal leading-[18px] tracking-[-0.026px] text-foreground">
+          VIRAL FORMAT LIBRARY
+        </h1>
       </div>
+      <button className="radial-shine-background flex items-center justify-center gap-2.5 rounded-[27px] border border-black px-5 py-[14px]">
+        <PlusIconDark className="text-black"/>
+        <span className="font-geist text-center text-[15px] font-semibold leading-[1.09] tracking-[0.15px] text-black">
+          Add New Viral Format
+        </span>
+      </button>
     </header>
-  )
+  );
 }
