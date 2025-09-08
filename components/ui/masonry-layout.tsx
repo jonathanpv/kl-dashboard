@@ -13,7 +13,9 @@ const MasonryLayout = React.forwardRef<HTMLDivElement, MasonryLayoutProps>(
       () => []
     );
 
-    React.Children.forEach(children, (child, index) => {
+    const childrenArray = React.Children.toArray(children);
+
+    childrenArray.forEach((child, index) => {
       if (child) {
         columnWrapper[index % columns].push(child);
       }
