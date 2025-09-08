@@ -1,5 +1,9 @@
+"use client"
+
 import { TrendingDown } from 'lucide-react';
-import React from 'react'
+import React from 'react';
+import { Area, AreaChart, ResponsiveContainer, Tooltip } from 'recharts';
+import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 
 export const StatsCreatorCard = () => {
   const borderStyle = {
@@ -77,6 +81,30 @@ export const StatsNumberCard = () => {
     background: "var(--stats-card-bg)",
   };
 
+  const chartData = React.useMemo(() => {
+    const data = [];
+    const today = new Date();
+    for (let i = 29; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(today.getDate() - i);
+      data.push({
+        date: date.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+        }),
+        value: Math.floor(Math.random() * 2000) + 500,
+      });
+    }
+    return data;
+  }, []);
+
+  const chartConfig = {
+    value: {
+      label: "Views",
+      color: "var(--color-chart-5)",
+    },
+  } satisfies ChartConfig;
+
   return (
     <div
       className="w-[206px] rounded-[20px] p-px"
@@ -99,8 +127,62 @@ export const StatsNumberCard = () => {
           </div>
         </div>
 
-        {/* Chart Placeholder */}
-        <div className="h-[47px] self-stretch bg-[#FF3C3C]" />
+        {/* Chart */}
+        <div className="h-[47px] self-stretch">
+          <ChartContainer config={chartConfig} className="w-full h-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart
+                data={chartData}
+                margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+              >
+                <Tooltip
+                  content={({ active, payload }) => {
+                    if (active && payload && payload.length) {
+                      return (
+                        <div className="bg-background border rounded-lg p-2 shadow-lg text-sm">
+                          <div className="font-bold">
+                            {payload[0].payload.date}
+                          </div>
+                          <div>Views: {payload[0].value}</div>
+                        </div>
+                      );
+                    }
+                    return null;
+                  }}
+                  cursor={true}
+                />
+                <defs>
+                  <linearGradient
+                    id="fillGradientStatsCard"
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                  >
+                    <stop
+                      offset="5%"
+                      stopColor="var(--color-value)"
+                      stopOpacity={0.4}
+                    />
+                    <stop
+                      offset="95%"
+                      stopColor="var(--color-value)"
+                      stopOpacity={0}
+                    />
+                  </linearGradient>
+                </defs>
+                <Area
+                  type="natural"
+                  dataKey="value"
+                  stroke="var(--color-value)"
+                  strokeWidth={2}
+                  fill="url(#fillGradientStatsCard)"
+                  isAnimationActive={false}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </ChartContainer>
+        </div>
 
         {/* Title section */}
         <div className="flex flex-col items-start self-stretch gap-1">
@@ -115,4 +197,3 @@ export const StatsNumberCard = () => {
     </div>
   );
 };
-
