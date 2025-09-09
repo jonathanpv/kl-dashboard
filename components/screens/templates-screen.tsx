@@ -33,15 +33,6 @@ const items: ItemData[] = Array.from({ length: 15 }).map((_, i) => {
     };
 });
 
-interface CardProps {
-    id: string;
-    title: string;
-    category: string;
-    height: number;
-    open: () => void;
-    viewCount: string;
-}
-
 
 function SimilarCard({ title, category, viewCount }: {title: string, category: string, viewCount: string}) {
     return (

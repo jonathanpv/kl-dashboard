@@ -52,6 +52,8 @@ const PaceArc: React.FC<PaceArcProps> = ({
   ...props
 }) => {
   return (
+    // @ts-expect-error - Suppressing a type error caused by incompatibility between
+    // React.SVGProps and motion/react's SVGMotionProps.
     <motion.svg
       width="160"
       height="100"
