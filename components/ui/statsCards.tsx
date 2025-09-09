@@ -1,11 +1,14 @@
 "use client"
 
-import { TrendingDown } from 'lucide-react';
+import { GaugeCircle, TrendingDown } from 'lucide-react';
 import React from 'react';
 import { Area, AreaChart, ResponsiveContainer, Tooltip } from 'recharts';
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
+import PaceArc from '../icons/PaceArc';
+import { cn } from '@/lib/utils';
 
-export const StatsCreatorCard = () => {
+
+export const StatsCreatorCard = ({ className }: { className?: string }) => {
   const borderStyle = {
     background: "var(--stats-card-border)",
   };
@@ -16,7 +19,7 @@ export const StatsCreatorCard = () => {
 
   return (
     <div
-      className="w-[450px] h-[252px] rounded-[12px] p-px"
+      className={cn("w-[450px] h-[252px] rounded-[12px] p-px", className)}
       style={borderStyle}
     >
       <div
@@ -72,7 +75,7 @@ export const StatsCreatorCard = () => {
   );
 };
 
-export const StatsNumberCard = () => {
+export const StatsNumberCard = ({ className }: { className?: string }) => {
   const borderStyle = {
     background: "var(--stats-card-border)",
   };
@@ -107,7 +110,7 @@ export const StatsNumberCard = () => {
 
   return (
     <div
-      className="w-[206px] rounded-[20px] p-px"
+      className={cn("w-[206px] rounded-[20px] p-px", className)}
       style={borderStyle}
     >
       <div
@@ -130,7 +133,7 @@ export const StatsNumberCard = () => {
         {/* Chart */}
         <div className="h-[47px] self-stretch">
           <ChartContainer config={chartConfig} className="w-full h-full">
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" height="99%">
               <AreaChart
                 data={chartData}
                 margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
@@ -191,6 +194,93 @@ export const StatsNumberCard = () => {
           </div>
           <div className="text-muted-foreground font-inter text-sm font-normal leading-4">
             Last 30 Days
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
+export const StatsDifficultyCard = ({
+  title = "Easy",
+  subtitle = "Difficulty",
+  className,
+}: {
+  title?: string;
+  subtitle?: string;
+  className?: string;
+}) => {
+  const borderStyle = {
+    background: "var(--stats-card-border)",
+  };
+
+  const contentStyle = {
+    background: "var(--stats-card-bg)",
+  };
+
+  return (
+    <div
+      className={cn("w-[206px] rounded-[20px] p-px", className)}
+      style={borderStyle}
+    >
+      <div
+        className="w-full h-full rounded-[19px] p-4 flex  items-start gap-[10px]"
+        style={contentStyle}
+      >
+        {/* Icon */}
+        <GaugeCircle className="h-11 w-11 bg-foreground text-background rounded-md p-2 stroke-[2.9]" />
+
+        {/* Text content */}
+        <div className="flex flex-col justify-center items-start gap-[10px]">
+          <div className="text-foreground font-geist text-2xl font-semibold tracking-[-0.48px]">
+            {title}
+          </div>
+          <div className="text-muted-foreground font-inter text-sm font-normal leading-4">
+            {subtitle}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const StatsPaceCard = ({ className }: { className?: string }) => {
+  const borderStyle = {
+    background: "var(--stats-card-border)",
+  };
+
+  const contentStyle = {
+    background: "var(--stats-card-bg)",
+  };
+
+  return (
+    <div
+      className={cn("w-[206px] rounded-[20px] p-px", className)}
+      style={borderStyle}
+    >
+      <div
+        className="w-full h-full rounded-[19px] flex flex-col justify-center items-center gap-[10px] p-4"
+        style={contentStyle}
+      >
+        <div className="relative flex flex-col justify-center items-center w-[160px] h-[100px]">
+          <div className=" w-full h-full">
+            <PaceArc
+              rating={3}
+              className="text-chart-3"
+              transition={{ type: "spring", stiffness: 50, damping: 10 }}
+            />
+          </div>
+          <div className="absolute bottom-[0.338px] text-chart-3 text-center font-geist text-[30px] font-black tracking-[-0.6px]">
+            Fast
+          </div>
+        </div>
+        <div className="flex flex-col justify-center items-start gap-1 self-stretch">
+          <div className="self-stretch text-foreground/90 font-geist text-lg font-medium leading-6">
+            Video Pacing
+          </div>
+          <div className="self-stretch text-muted-foreground font-inter text-sm font-normal leading-4">
+            Fast: very quick hooks.
           </div>
         </div>
       </div>

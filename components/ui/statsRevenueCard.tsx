@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { TrendingDown } from "lucide-react";
 import { useRef, useState } from "react";
 import { useSpring, useMotionValueEvent } from "motion/react";
+import { cn } from "@/lib/utils";
 
 const chartData = [
   { month: "January", mobile: 245 },
@@ -36,7 +37,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function StatsRevenueCard() {
+export function StatsRevenueCard({ className }: { className?: string }) {
   const chartRef = useRef<HTMLDivElement>(null);
   const [axis, setAxis] = useState(0);
 
@@ -64,7 +65,7 @@ export function StatsRevenueCard() {
 
   return (
     <div
-      className="w-[450px] h-[252px] rounded-[12px] p-px"
+      className={cn("w-[450px] h-[252px] rounded-[12px] p-px", className)}
       style={borderStyle}
     >
       <div
