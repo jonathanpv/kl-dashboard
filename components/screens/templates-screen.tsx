@@ -5,6 +5,8 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useState } from 'react';
 import { ContentTemplateCardVariant5 } from '@/components/ui/ContentTemplateCards';
 import { Heart } from 'lucide-react';
+import { StatsRevenueCard } from '@/components/ui/statsRevenueCard';
+import { StatsCreatorCard, StatsNumberCard, StatsDifficultyCard, StatsPaceCard } from "@/components/ui/statsCards";
 
 interface ItemData {
     id: string;
@@ -13,9 +15,10 @@ interface ItemData {
     height: number;
     viewCount: string;
     hookType: string;
-    videoPacing: string;
+    videoPacing: 'Fast' | 'Medium' | 'Slow';
     content: string;
     type: 'standard' | 'variant5';
+    difficulty: 'Easy' | 'Medium' | 'Hard'
 }
 
 const items: ItemData[] = Array.from({ length: 15 }).map((_, i) => {
@@ -27,7 +30,8 @@ const items: ItemData[] = Array.from({ length: 15 }).map((_, i) => {
         height: height,
         viewCount: `${(Math.random() * 5).toFixed(1)}M`,
         hookType: ['Question', 'Story', 'Bold Statement'][i % 3],
-        videoPacing: ['Fast', 'Medium', 'Slow'][i % 3],
+        videoPacing: ['Fast', 'Medium', 'Slow'][i % 3] as 'Fast' | 'Medium' | 'Slow',
+        difficulty: ['Easy', 'Medium', 'Hard'][i % 3],
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         type: 'standard'
     };
@@ -56,7 +60,7 @@ function SimilarCard({ title, category, viewCount }: {title: string, category: s
 
 function Item({ id, close }: { id: string; close: () => void }) {
     const item = items.find((item) => item.id === id)!;
-    const { category, title, content, viewCount, hookType, videoPacing } = item;
+    const { category, title, content, viewCount, hookType, videoPacing, difficulty } = item;
 
     const similarItems = items.filter(i => i.id !== id).slice(0, 6);
 
@@ -67,13 +71,15 @@ function Item({ id, close }: { id: string; close: () => void }) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="fixed  inset-0 bg-background/80 z-40"
+                className="fixed  inset-0 bg-background/95 z-40"
                 onClick={close}
             />
-            <div className="fixed inset-0 z-50 px-8 flex items-center justify-center" onClick={close}>
-                <div className="w-full max-w-6xl h-full max-h-[900px]  " onClick={(e) => e.stopPropagation()}>
-                    <div className="grid grid-cols-5 gap-8 h-full">
-                        <div className="col-span-3 h-full overflow-y-auto flex flex-col gap-8 pr-4 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-zinc-800">
+            <div className="fixed inset-0 z-50 p-0 lg:pl-62 lg:pt-32 flex items-center justify-center" onClick={close}>
+                {/* the entire left and right side */}
+                <div className="w-full max-w-6xl h-full max-h-[900px] " onClick={(e) => e.stopPropagation()}>    
+                    {/* Right Side Details Panel */}
+                    <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 h-full">
+                        <div className="lg:col-span-3 h-full overflow-y-auto flex flex-col gap-8 pr-4 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-zinc-800">
                             {/* The expanding container */}
                             <motion.div
                                     layoutId={`card-container-${id}`}
@@ -132,7 +138,7 @@ function Item({ id, close }: { id: string; close: () => void }) {
                                 exit={{ opacity: 0 }}
                             >
                                 <h4 className="text-xl font-bold text-foreground mb-4">Similar templates</h4>
-                                <div className="grid grid-cols-3 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                     {similarItems.map(similarItem => (
                                         <SimilarCard key={similarItem.id} {...similarItem} />
                                     ))}
@@ -140,25 +146,19 @@ function Item({ id, close }: { id: string; close: () => void }) {
                             </motion.div>
                         </div>
 
+                        {/* LeftSide Stats Panel */}
                         <motion.div
-                            className="col-span-2 bg-zinc-900/80 rounded-lg p-6 flex flex-col gap-4 h-fit"
+                            className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6 items-start h-full overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-zinc-800"
                             initial={{ opacity: 0, x: 100 }}
                             animate={{ opacity: 1, x: 0, transition: { delay: 0.1 } }}
                             exit={{ opacity: 0, x: 100 }}
                         >
-                            <h4 className="text-xl font-bold text-white">More Info</h4>
-                            <div className="bg-zinc-800 p-4 rounded-lg">
-                                <p className="text-sm text-zinc-400">View Count</p>
-                                <p className="text-2xl font-bold text-white">{viewCount}</p>
-                            </div>
-                            <div className="bg-zinc-800 p-4 rounded-lg">
-                                <p className="text-sm text-zinc-400">Hook Type</p>
-                                <p className="text-2xl font-bold text-white">{hookType}</p>
-                            </div>
-                            <div className="bg-zinc-800 p-4 rounded-lg">
-                                <p className="text-sm text-zinc-400">Video Pacing</p>
-                                <p className="text-2xl font-bold text-white">{videoPacing}</p>
-                            </div>
+                            <StatsCreatorCard className="sm:col-span-2" />
+                            <StatsNumberCard views={viewCount} />
+                            <StatsPaceCard pace={videoPacing} />
+                            <StatsDifficultyCard title={difficulty} subtitle="Difficuly" />
+                            <StatsDifficultyCard title={hookType} subtitle="Hook Type" />
+                            <StatsRevenueCard className="sm:col-span-2" />
                         </motion.div>
                     </div>
                 </div>

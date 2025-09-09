@@ -8,7 +8,7 @@ import PaceArc from '../icons/PaceArc';
 import { cn } from '@/lib/utils';
 
 
-export const StatsCreatorCard = ({ className }: { className?: string }) => {
+export const StatsCreatorCard = ({ className, name = "Moana John", email = "moana_j@mail.com", joinDate = "12 sep 2002", projectsReviewed = "42 projects" }: { className?: string, name?: string, email?: string, joinDate?: string, projectsReviewed?: string }) => {
   const borderStyle = {
     background: "var(--stats-card-border)",
   };
@@ -34,7 +34,7 @@ export const StatsCreatorCard = ({ className }: { className?: string }) => {
           <div className="flex flex-col items-start gap-[9px] flex-1">
             <div className="flex items-center gap-[9px] self-stretch">
               <div className="flex-1 text-foreground font-geist text-2xl font-semibold tracking-[-0.48px]">
-                Moana John
+                {name}
               </div>
               <div className="flex justify-center items-center gap-2 rounded-full bg-secondary px-4 py-2">
                 <div className="text-secondary-foreground text-center font-manrope text-xs font-bold leading-4 tracking-[0.96px] uppercase">
@@ -43,7 +43,7 @@ export const StatsCreatorCard = ({ className }: { className?: string }) => {
               </div>
             </div>
             <div className="self-stretch text-muted-foreground font-inter text-sm font-medium leading-4">
-              moana_j @mail.com
+              {email}
             </div>
           </div>
         </div>
@@ -55,7 +55,7 @@ export const StatsCreatorCard = ({ className }: { className?: string }) => {
         <div className="flex items-center gap-2.5 self-stretch">
           <div className="flex w-[143.852px] flex-col items-start gap-1">
             <div className="text-foreground font-geist text-lg font-medium leading-6">
-              12 sep 2002
+              {joinDate}
             </div>
             <div className="text-muted-foreground font-inter text-sm font-medium leading-4">
               Join date
@@ -63,7 +63,7 @@ export const StatsCreatorCard = ({ className }: { className?: string }) => {
           </div>
           <div className="flex w-[143.852px] flex-col items-start gap-1">
             <div className="text-foreground font-geist text-lg font-medium leading-6">
-              42 projects
+              {projectsReviewed}
             </div>
             <div className="text-muted-foreground font-inter text-sm font-medium leading-4">
               Reviewed
@@ -75,7 +75,7 @@ export const StatsCreatorCard = ({ className }: { className?: string }) => {
   );
 };
 
-export const StatsNumberCard = ({ className }: { className?: string }) => {
+export const StatsNumberCard = ({ className, views = "72K", change = "90%" }: { className?: string, views?: string, change?: string }) => {
   const borderStyle = {
     background: "var(--stats-card-border)",
   };
@@ -120,12 +120,12 @@ export const StatsNumberCard = ({ className }: { className?: string }) => {
         {/* Top Row */}
         <div className="flex justify-between items-center self-stretch">
           <div className="text-foreground font-geist text-[29px] font-black leading-normal tracking-[-0.58px]">
-            72K
+            {views}
           </div>
           <div className="flex items-center justify-center gap-2 rounded-full bg-foreground px-4 py-2">
             <TrendingDown className="!h-4 !w-4 text-background" />
             <div className="text-background text-center font-geist text-[10px] font-black uppercase leading-4 tracking-[0.8px]">
-              90%
+              {change}
             </div>
           </div>
         </div>
@@ -245,7 +245,7 @@ export const StatsDifficultyCard = ({
   );
 };
 
-export const StatsPaceCard = ({ className }: { className?: string }) => {
+export const StatsPaceCard = ({ className, pace = 'Fast' }: { className?: string, pace?: 'Fast' | 'Medium' | 'Slow' }) => {
   const borderStyle = {
     background: "var(--stats-card-border)",
   };
@@ -253,6 +253,13 @@ export const StatsPaceCard = ({ className }: { className?: string }) => {
   const contentStyle = {
     background: "var(--stats-card-bg)",
   };
+
+  const paceConfig = {
+      Fast: { rating: 3, description: "Very quick hooks.", color: "text-chart-3" },
+      Medium: { rating: 2, description: "Moderately paced.", color: "text-chart-2" },
+      Slow: { rating: 1, description: "Slower, more deliberate.", color: "text-chart-1" },
+  };
+  const { rating, description, color } = paceConfig[pace];
 
   return (
     <div
@@ -266,13 +273,13 @@ export const StatsPaceCard = ({ className }: { className?: string }) => {
         <div className="relative flex flex-col justify-center items-center w-[160px] h-[100px]">
           <div className=" w-full h-full">
             <PaceArc
-              rating={3}
-              className="text-chart-3"
+              rating={rating}
+              className={color}
               transition={{ type: "spring", stiffness: 50, damping: 10 }}
             />
           </div>
-          <div className="absolute bottom-[0.338px] text-chart-3 text-center font-geist text-[30px] font-black tracking-[-0.6px]">
-            Fast
+          <div className={`absolute bottom-[0.338px] ${color} text-center font-geist text-[30px] font-black tracking-[-0.6px]`}>
+            {pace}
           </div>
         </div>
         <div className="flex flex-col justify-center items-start gap-1 self-stretch">
@@ -280,7 +287,7 @@ export const StatsPaceCard = ({ className }: { className?: string }) => {
             Video Pacing
           </div>
           <div className="self-stretch text-muted-foreground font-inter text-sm font-normal leading-4">
-            Fast: very quick hooks.
+            {pace}: {description}
           </div>
         </div>
       </div>
