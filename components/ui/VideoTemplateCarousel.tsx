@@ -4,12 +4,12 @@ import React, { useRef } from 'react';
 import { ContentTemplateCardVariant5 } from "@/components/ui/ContentTemplateCards";
 
 const videoTemplates = [
-  { id: "1", title: "Template 1", videoSrc: "/chatgpt-1.mp4", thumbnailSrc: "/chatgpt-1.png" },
-  { id: "2", title: "Template 2", videoSrc: "/chatgpt-2.mp4", thumbnailSrc: "/chatgpt-2.png" },
-  { id: "3", title: "Template 3", videoSrc: "/reddit-1.mp4", thumbnailSrc: "/reddit-1.png" },
-  { id: "4", title: "Template 4", videoSrc: "/reddit-3.mp4", thumbnailSrc: "/reddit-3.png" },
-  { id: "5", title: "Template 5", videoSrc: "/split-1.mp4", thumbnailSrc: "/split-1.png" },
-  { id: "6", title: "Template 6", videoSrc: "/chatgpt-1.mp4", thumbnailSrc: "/chatgpt-1.png" },
+  { id: "1", title: "Template 1", videoSrc: "/vid1.mp4", thumbnailSrc: "/vid1.png" },
+  { id: "2", title: "Template 2", videoSrc: "/vid2.mp4", thumbnailSrc: "/vid2.png" },
+  { id: "3", title: "Template 3", videoSrc: "/vid3.mp4", thumbnailSrc: "/vid3.png" },
+  { id: "4", title: "Template 4", videoSrc: "/vid4.mp4", thumbnailSrc: "/vid4.png" },
+  { id: "5", title: "Template 5", videoSrc: "/vid5.mp4", thumbnailSrc: "/vid5.png" },
+  { id: "6", title: "Template 6", videoSrc: "/vid6.mp4", thumbnailSrc: "/vid6.png" },
 ];
 
 export function VideoTemplateCarousel() {

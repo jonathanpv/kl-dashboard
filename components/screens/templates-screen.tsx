@@ -25,11 +25,17 @@ interface ItemData {
 }
 
 const videoSources = [
-    '/chatgpt-1.mp4',
-    '/chatgpt-2.mp4',
-    '/reddit-1.mp4',
-    '/reddit-3.mp4',
-    '/split-1.mp4',
+    '/vid1.mp4',
+    '/vid2.mp4',
+    '/vid3.mp4',
+    '/vid4.mp4',
+    '/vid5.mp4',
+    '/vid6.mp4',
+    '/vid7.mp4',
+    '/vid8.mp4',
+    '/vid9.mp4',
+    '/vid10.mp4',
+    '/vid11.mp4',
 ];
 
 const items: ItemData[] = Array.from({ length: 15 }).map((_, i) => {
