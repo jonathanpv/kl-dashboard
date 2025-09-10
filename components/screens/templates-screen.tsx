@@ -1,12 +1,13 @@
 'use client';
 
 import { MasonryLayout } from '@/components/ui/masonry-layout';
-import { AnimatePresence, motion } from 'motion/react';
-import { useState } from 'react';
+import { AnimatePresence, motion, LayoutGroup } from 'motion/react';
+import { useState, useRef } from 'react';
 import { ContentTemplateCardVariant5 } from '@/components/ui/ContentTemplateCards';
 import { Heart } from 'lucide-react';
 import { StatsRevenueCard } from '@/components/ui/statsRevenueCard';
 import { StatsCreatorCard, StatsNumberCard, StatsDifficultyCard, StatsPaceCard } from "@/components/ui/statsCards";
+import { useEffect } from 'react';
 
 interface ItemData {
     id: string;
@@ -18,11 +19,22 @@ interface ItemData {
     videoPacing: 'Fast' | 'Medium' | 'Slow';
     content: string;
     type: 'standard' | 'variant5';
-    difficulty: 'Easy' | 'Medium' | 'Hard'
+    difficulty: 'Easy' | 'Medium' | 'Hard';
+    videoSrc: string;
+    thumbnailSrc: string;
 }
+
+const videoSources = [
+    '/chatgpt-1.mp4',
+    '/chatgpt-2.mp4',
+    '/reddit-1.mp4',
+    '/reddit-3.mp4',
+    '/split-1.mp4',
+];
 
 const items: ItemData[] = Array.from({ length: 15 }).map((_, i) => {
     const height = [300, 400, 350, 450, 500][i % 5];
+    const videoSrc = videoSources[i % videoSources.length];
     return {
         id: `item-${i}`,
         title: `Template ${i + 1}`,
@@ -33,16 +45,52 @@ const items: ItemData[] = Array.from({ length: 15 }).map((_, i) => {
         videoPacing: ['Fast', 'Medium', 'Slow'][i % 3] as 'Fast' | 'Medium' | 'Slow',
         difficulty: ['Easy', 'Medium', 'Hard'][i % 3],
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        type: 'standard'
+        type: 'standard',
+        videoSrc: videoSrc,
+        thumbnailSrc: videoSrc.replace('.mp4', '.png'),
     };
 });
 
 
-function SimilarCard({ title, category, viewCount }: {title: string, category: string, viewCount: string}) {
+function SimilarCard({ title, category, viewCount, videoSrc, thumbnailSrc }: {title: string, category: string, viewCount: string, videoSrc: string, thumbnailSrc: string}) {
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const [loadVideo, setLoadVideo] = useState(false);
+
+    const handleMouseEnter = async () => {
+        setLoadVideo(true);
+        if (videoRef.current) {
+            try {
+                await videoRef.current.play();
+            } catch (error) {
+                console.log("play interrupted");
+            }
+        }
+    };
+
+    const handleMouseLeave = () => {
+        if (videoRef.current) {
+            videoRef.current.pause();
+            videoRef.current.currentTime = 0;
+        }
+    };
+
     return (
-        <div className=" bg-background flex flex-col overflow-flip rounded-xl group cursor-pointer w-[206px] h-[400px]">
-            <div className="rounded-xl relative h-[360px] w-[206px]">
-                <div className="rounded-xl bg-blue-500 h-full w-full"></div> {/* Placeholder for image */}
+        <div className=" bg-background flex flex-col overflow-flip rounded-xl group cursor-pointer w-[206px] h-[400px]" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <div className="rounded-xl relative h-[360px] w-[206px] overflow-hidden">
+                {loadVideo ? (
+                    <video
+                        ref={videoRef}
+                        src={videoSrc}
+                        muted
+                        loop
+                        playsInline
+                        autoPlay
+                        controls={false}
+                        className="w-full h-full object-cover"
+                    />
+                ) : (
+                    <img src={thumbnailSrc} className="w-full h-full object-cover" />
+                )}
                 <div className="absolute bottom-1 right-1 text-xs bg-black/50 text-white px-1 py-0.5 rounded">
                     {viewCount}
                 </div>
@@ -60,7 +108,22 @@ function SimilarCard({ title, category, viewCount }: {title: string, category: s
 
 function Item({ id, close }: { id: string; close: () => void }) {
     const item = items.find((item) => item.id === id)!;
-    const { category, title, content, viewCount, hookType, videoPacing, difficulty } = item;
+    const { category, title, content, viewCount, hookType, videoPacing, difficulty, videoSrc, thumbnailSrc } = item;
+    const [playVideo, setPlayVideo] = useState(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (playVideo && video) {
+            video.muted = false;
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.error("Autoplay prevented: ", error);
+                });
+            }
+        }
+    }, [playVideo]);
 
     const similarItems = items.filter(i => i.id !== id).slice(0, 6);
 
@@ -74,9 +137,9 @@ function Item({ id, close }: { id: string; close: () => void }) {
                 className="fixed  inset-0 bg-background/95 z-40"
                 onClick={close}
             />
-            <div className="fixed inset-0 z-50 p-0 lg:pl-62 lg:pt-32 flex items-center justify-center" onClick={close}>
+            <div className="fixed inset-0 z-50 pt-12 flex items-center justify-center" onClick={close}>
                 {/* the entire left and right side */}
-                <div className="w-full max-w-6xl h-full max-h-[900px] " onClick={(e) => e.stopPropagation()}>    
+                <div className="w-full max-w-7xl h-full max-h-[900px] " onClick={(e) => e.stopPropagation()}>    
                     {/* Right Side Details Panel */}
                     <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 h-full">
                         <div className="lg:col-span-3 h-full overflow-y-auto flex flex-col gap-8 pr-4 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-zinc-800">
@@ -84,13 +147,29 @@ function Item({ id, close }: { id: string; close: () => void }) {
                             <motion.div
                                     layoutId={`card-container-${id}`}
                                     className="bg-card rounded-2xl p-6 flex gap-6 w-full"
+                                    onLayoutAnimationComplete={() => setPlayVideo(true)}
                                 >
                                 <div className="flex flex-col">
                                     {/* The "maincontent" that keeps its size */}
                                     <motion.div
                                         layoutId={`card-image-container-${id}`}
-                                        className="relative flex h-[366px] w-[210px] flex-col justify-center items-center shrink-0 rounded-[12px] bg-[#B5BEFF]"
+                                        className="relative flex h-[366px] w-[210px] flex-col justify-center items-center shrink-0 rounded-[12px] overflow-hidden"
                                     >
+                                        {playVideo ? (
+                                            <video
+                                                ref={videoRef}
+                                                src={videoSrc}
+                                                muted
+                                                loop
+                                                playsInline
+                                                controls={false}
+
+                                                autoPlay
+                                                className="w-full h-full object-cover"
+                                            />
+                                        ) : (
+                                            <img src={thumbnailSrc} className="w-full h-full object-cover" />
+                                        )}
                                         {/* Replicating content from the card for smooth transition */}
                                         <div className="absolute left-[10px] bottom-[8.5px] flex h-[22px] items-center justify-center rounded-[6px] bg-black/40 p-[2px]">
                                             <span className="text-white text-center font-geist text-[12px] font-normal leading-[1.09] tracking-[-0.026px]">
@@ -173,15 +252,17 @@ export function TemplatesScreen() {
   const open = (id: string) => setOpenId(id);
 
   return (
-    <div className="flex-1 h-full p-8">
-      <MasonryLayout>
-        {items.map((card) => {
-          return <ContentTemplateCardVariant5 key={card.id} {...card} open={() => open(card.id)} />;
-        })}
-      </MasonryLayout>
-      <AnimatePresence>
-        {openId && <Item close={close} id={openId} key="item" />}
-      </AnimatePresence>
-    </div>
+    <LayoutGroup>
+        <div className="flex-1 h-full py-6">
+          <MasonryLayout>
+            {items.map((card) => {
+              return <ContentTemplateCardVariant5 key={card.id} {...card} open={() => open(card.id)} />;
+            })}
+          </MasonryLayout>
+          <AnimatePresence>
+            {openId && <Item close={close} id={openId} key={openId} />}
+          </AnimatePresence>
+        </div>
+    </LayoutGroup>
   );
 }

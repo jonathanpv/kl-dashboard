@@ -1,19 +1,53 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { Heart } from 'lucide-react';
 
-export const ContentTemplateCardVariant5 = ({ open, id }: { open: () => void; id: string }) => {
+export const ContentTemplateCardVariant5 = ({ open, id, videoSrc, title, thumbnailSrc }: { open: () => void; id: string, videoSrc: string, title: string, thumbnailSrc: string }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [loadVideo, setLoadVideo] = useState(false);
+
+  const handleMouseEnter = async () => {
+    setLoadVideo(true);
+    if (videoRef.current) {
+      try {
+        await videoRef.current.play();
+      } catch (error) {
+        console.log("play interrupted");
+      }
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  };
+
   return (
-    <div onClick={open} className="cursor-pointer">
+    <div onClick={open} className="cursor-pointer" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <motion.div
         className="flex w-[210px] h-[400px] flex-col items-center gap-[6px] aspect-[21/40] rounded-[13px] bg-background"
         layoutId={`card-container-${id}`}
       >
         {/* MainContent */}
         <motion.div
-          className="relative flex h-[366px] flex-col justify-center items-center shrink-0 self-stretch rounded-[12px] bg-[#B5BEFF]"
+          className="relative flex h-[366px] flex-col justify-center items-center shrink-0 self-stretch rounded-[12px] bg-background overflow-hidden"
           layoutId={`card-image-container-${id}`}
         >
+          {loadVideo ? (
+            <video
+              ref={videoRef}
+              src={videoSrc}
+              muted
+              loop
+              playsInline
+              autoPlay
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <img src={thumbnailSrc} className="w-full h-full object-cover" />
+          )}
           {/* Time */}
           <div className="absolute left-[10px] bottom-[8.5px] flex h-[22px] items-center justify-center rounded-[6px] bg-black/40 p-[2px]">
             <span className="text-white text-center font-geist text-[12px] font-normal leading-[1.09] tracking-[-0.026px]">
@@ -38,7 +72,7 @@ export const ContentTemplateCardVariant5 = ({ open, id }: { open: () => void; id
           layout="position"
         >
           <span className="text-foreground text-center font-geist text-[14px] font-semibold leading-[1.09] tracking-[-0.026px]">
-            Would You Rather - Template
+            {title}
           </span>
         </motion.div>
       </motion.div>
