@@ -11,7 +11,7 @@ export const ContentTemplateCardVariant5 = ({ open, id, videoSrc, title, thumbna
     if (videoRef.current) {
       try {
         await videoRef.current.play();
-      } catch (error) {
+      } catch (_error) {
         console.log("play interrupted");
       }
     }
@@ -46,7 +46,8 @@ export const ContentTemplateCardVariant5 = ({ open, id, videoSrc, title, thumbna
               className="w-full h-full object-cover"
             />
           ) : (
-            <img src={thumbnailSrc} className="w-full h-full object-cover" />
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={thumbnailSrc} alt="" className="w-full h-full object-cover" />
           )}
           {/* Time */}
           <div className="absolute left-[10px] bottom-[8.5px] flex h-[22px] items-center justify-center rounded-[6px] bg-black/40 p-[2px]">

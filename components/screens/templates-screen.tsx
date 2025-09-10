@@ -43,7 +43,7 @@ const items: ItemData[] = Array.from({ length: 15 }).map((_, i) => {
         viewCount: `${(Math.random() * 5).toFixed(1)}M`,
         hookType: ['Question', 'Story', 'Bold Statement'][i % 3],
         videoPacing: ['Fast', 'Medium', 'Slow'][i % 3] as 'Fast' | 'Medium' | 'Slow',
-        difficulty: ['Easy', 'Medium', 'Hard'][i % 3],
+        difficulty: ['Easy', 'Medium', 'Hard'][i % 3] as 'Easy' | 'Medium' | 'Hard',
         content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
         type: 'standard',
         videoSrc: videoSrc,
@@ -61,7 +61,7 @@ function SimilarCard({ title, category, viewCount, videoSrc, thumbnailSrc }: {ti
         if (videoRef.current) {
             try {
                 await videoRef.current.play();
-            } catch (error) {
+            } catch (_error) {
                 console.log("play interrupted");
             }
         }
@@ -118,8 +118,8 @@ function Item({ id, close }: { id: string; close: () => void }) {
             video.muted = false;
             const playPromise = video.play();
             if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.error("Autoplay prevented: ", error);
+                playPromise.catch(_error => {
+                    console.error("Autoplay prevented: ", _error);
                 });
             }
         }
