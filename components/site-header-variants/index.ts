@@ -1,5 +1,6 @@
 'use client';
 
+import * as React from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 import { LibraryHeader } from './LibraryHeader';
@@ -13,7 +14,7 @@ import { ExperimentsHeaderMobile } from './ExperimentsHeader.mobile';
 import { DefaultHeader } from './DefaultHeader';
 import { DefaultHeaderMobile } from './DefaultHeader.mobile';
 
-type HeaderComponent = () => JSX.Element;
+type HeaderComponent = () => React.ReactNode;
 
 interface HeaderVariant {
   desktop: HeaderComponent;

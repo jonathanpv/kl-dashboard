@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
 export interface BottomMenuItem {
-  icon: (props: React.ComponentProps<'svg'>) => JSX.Element;
+  icon: (props: React.ComponentProps<'svg'>) => React.ReactNode;
   label: string;
   href: string;
 }
