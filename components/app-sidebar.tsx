@@ -1,6 +1,7 @@
-"use client"
+'use client'
 
 import * as React from "react"
+import { usePathname } from "next/navigation"
 import {
   IconCamera,
   IconFileAi,
@@ -29,6 +30,9 @@ import { ModeToggle } from "./moon-toggle"
 
 import { SmileIconDark } from "./icons/SmileIconDark"
 import { SmileIconTongueDark } from "./icons/SmileIconTongueDark"
+import { useView } from "@/hooks/use-view"
+import { useIsMobile } from "@/hooks/use-mobile"
+import { BottomMenu } from "@/components/bottom-menu"
 
 const data = {
   user: {
@@ -126,32 +130,59 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const pathname = usePathname()
+  const { setCurrentView } = useView()
+  const isMobile = useIsMobile();
+
+  React.useEffect(() => {
+    const sortedNavItems = [...data.navMain].sort(
+      (a, b) => b.url.length - a.url.length
+    )
+    const currentNavItem = sortedNavItems.find((item) =>
+      pathname.startsWith(item.url)
+    )
+    if (currentNavItem) {
+      setCurrentView(currentNavItem.title)
+    }
+  }, [pathname, setCurrentView])
+
+  const mobileNavItems = data.navMain.map(item => ({
+    label: item.title,
+    icon: item.icon,
+    href: item.url,
+  }));
 
   return (
-    <Sidebar className="sidebarclassbro pt-[36px]" collapsible="offcanvas" {...props}>
-      <SidebarHeader className="sidebarheaderclassbro h-12 items-center mb-5">
-        <SidebarMenu className="sidebarmenuclassbro">
-          <SidebarMenuItem className="sidebarMenuITEMclassbro">
-            <SidebarMenuButton
-              asChild
-              className="sidebarMENUBUTTONCLASSBRO data-[slot=sidebar-menu-button]:!p-1.5"
-            >
-              <a href="#">
-                <MainLogoDark className="!w-[32px] !h-[24px] text-foreground"/>
-                <span className="text-2xl font-russo-one">GROWWW</span>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarHeader>
-      <SidebarContent className="sidebarCONTENTCLASSBRO">
-        <NavMain  items={data.navMain} />
-        <NavDocuments items={data.documents} />
-      </SidebarContent>
-      <SidebarFooter className="sidebarFOOTERCOmponentBro ">
-        <ModeToggle/>
-        <NavUser user={data.user} />
-      </SidebarFooter>
-    </Sidebar>
+    <>
+      {isMobile ? (
+        <BottomMenu items={mobileNavItems} />
+      ) : (
+        <Sidebar className="sidebarclassbro pt-[36px]" collapsible="offcanvas" {...props}>
+          <SidebarHeader className="sidebarheaderclassbro h-12 items-center mb-5">
+            <SidebarMenu className="sidebarmenuclassbro">
+              <SidebarMenuItem className="sidebarMenuITEMclassbro">
+                <SidebarMenuButton
+                  asChild
+                  className="sidebarMENUBUTTONCLASSBRO data-[slot=sidebar-menu-button]:!p-1.5"
+                >
+                  <a href="#">
+                    <MainLogoDark className="!w-[32px] !h-[24px] text-foreground"/>
+                    <span className="text-2xl font-russo-one">GROWWW</span>
+                  </a>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarHeader>
+          <SidebarContent className="sidebarCONTENTCLASSBRO">
+            <NavMain  items={data.navMain} />
+            <NavDocuments items={data.documents} />
+          </SidebarContent>
+          <SidebarFooter className="sidebarFOOTERCOmponentBro ">
+            <ModeToggle/>
+            <NavUser user={data.user} />
+          </SidebarFooter>
+        </Sidebar>
+      )}
+    </>
   )
 }
