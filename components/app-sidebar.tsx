@@ -157,13 +157,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {isMobile ? (
         <BottomMenu items={mobileNavItems} />
       ) : (
-        <Sidebar className="sidebarclassbro pt-[36px]" collapsible="offcanvas" {...props}>
-          <SidebarHeader className="sidebarheaderclassbro h-12 items-center mb-5">
-            <SidebarMenu className="sidebarmenuclassbro">
-              <SidebarMenuItem className="sidebarMenuITEMclassbro">
+        <Sidebar className="pt-[36px]" collapsible="offcanvas" {...props}>
+          <SidebarHeader className="h-12 items-center mb-5">
+            <SidebarMenu>
+              <SidebarMenuItem>
                 <SidebarMenuButton
                   asChild
-                  className="sidebarMENUBUTTONCLASSBRO data-[slot=sidebar-menu-button]:!p-1.5"
+                  
                 >
                   <a href="#">
                     <MainLogoDark className="!w-[32px] !h-[24px] text-foreground"/>
@@ -173,11 +173,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarHeader>
-          <SidebarContent className="sidebarCONTENTCLASSBRO">
+          <SidebarContent>
             <NavMain  items={data.navMain} />
             <NavDocuments items={data.documents} />
           </SidebarContent>
-          <SidebarFooter className="sidebarFOOTERCOmponentBro ">
+          <SidebarFooter>
             <ModeToggle/>
             <NavUser user={data.user} />
           </SidebarFooter>

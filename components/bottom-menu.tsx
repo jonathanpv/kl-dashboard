@@ -20,7 +20,7 @@ export function BottomMenu({ items }: { items: BottomMenuItem[] }) {
   }, [items, pathname]);
 
   return (
-    <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 h-16 bg-background/80 backdrop-blur-xl border rounded-full flex items-center justify-center gap-1 p-2 z-50 shadow-lg">
+    <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 h-16 bg-background/80 backdrop-blur-xl border rounded-full flex items-center justify-center gap-1 p-2 z-100 shadow-lg">
       {items.map((item) => {
         const isActive = activeItem?.href === item.href;
         return (

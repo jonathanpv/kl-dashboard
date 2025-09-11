@@ -64,7 +64,7 @@ export function StatsRevenueCard({ className }: { className?: string }) {
 
   return (
     <div
-      className={cn("w-[450px] h-[252px] rounded-[12px] p-px", className)}
+      className={cn("w-[330px] md:w-[450px] h-[252px] rounded-[12px] p-px", className)}
       style={borderStyle}
     >
       <div
